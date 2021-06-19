@@ -1,25 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import Main from './components/Main';
+import Result from './components/Result';
+import {useState} from "react";
+import Hints from './components/Hints';
 
 function App() {
+
+// States
+  const [result, setResult] = useState(null);
+  const [userGuess, setUserGuess] = useState();
+  const [number, setNumber] = useState(Math.floor(Math.random() * 1000));
+  const [message, setMessage] = useState("");
+  const [tries, setTries] = useState(8);
+
+  const changeView = () => {
+    return result? 
+      <Result 
+        result={result} 
+        setResult={setResult}
+        setUserGuess = {setUserGuess}
+        setNumber = {setNumber}
+        setMessage = {setMessage}
+        setTries = {setTries}
+         /> : 
+      (
+        <div>
+          <Main 
+          setResult={setResult} 
+          userGuess={userGuess} 
+          setUserGuess={setUserGuess}
+          number={number}
+          message={message}
+          setMessage={setMessage}
+          tries={tries}
+          setTries={setTries}
+          />
+          <Hints number={number}/>
+        </div>
+      )
+      
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {changeView()}
     </div>
-  );
+  )
 }
 
 export default App;
