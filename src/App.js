@@ -2,7 +2,7 @@ import './App.css';
 import Main from './components/Main';
 import Result from './components/Result';
 import {useState} from "react";
-import Hints from './components/Hints';
+import {GlobalStyle} from "./styles.js";
 
 function App() {
 
@@ -35,7 +35,7 @@ function App() {
           tries={tries}
           setTries={setTries}
           />
-          <Hints number={number}/>
+          
         </div>
       )
       
@@ -43,6 +43,8 @@ function App() {
 
   return (
     <div>
+      <GlobalStyle />
+      <h1>THE GUESSING GAME</h1>
       {changeView()}
     </div>
   )

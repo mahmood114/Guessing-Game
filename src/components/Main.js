@@ -1,5 +1,6 @@
-import { InputField, CheckButton, ErrorMessage } from '../styles';
+import { MainPage, InputField, ErrorMessage, CheckButton } from '../styles';
 import {useState} from "react";
+import Hints from './Hints';
 
 const Main = (props) => {
     
@@ -14,10 +15,10 @@ const Main = (props) => {
     const setResult = props.setResult;
 
     // States
-    const [disableButton, setDisableButton] = useState(false);
+    const [disableCheckButton, setDisableCheckButton] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [prevNum, setPrevNum] = useState();
-    
+    const [disableHintsButton, setDisableHintsButton] = useState(true);
 
 
 // button handler
@@ -26,7 +27,9 @@ const Main = (props) => {
             return;
 
         setTries(tries => tries - 1);
-        
+        if (tries === 4)
+            setDisableHintsButton(false);
+
         if (userGuess === number) {
             setResult("won");
             return;
@@ -49,26 +52,26 @@ const Main = (props) => {
             return;
 
         if (newVal > 1000 || newVal < 1) {
-            setDisableButton(true);
+            setDisableCheckButton(true);
             setErrorMessage("Guess out of bound");
         }
             
         else {
-            setDisableButton(false);
+            setDisableCheckButton(false);
             setErrorMessage("");
         }
 
     }
 
     return (
-        <div>
+        <MainPage>
             <InputField onChange={changeInput} placeholder="Guess the number (1-1000)"></InputField>
             <ErrorMessage>{errorMessage}</ErrorMessage>
-            <CheckButton disabled={disableButton} onClick={checkGuess}>Check</CheckButton>
+            <CheckButton disabled={disableCheckButton} onClick={checkGuess}>Check</CheckButton>
             <p>{message}</p>
             <p>{tries} guesses left</p>
-
-        </div>
+            <Hints number={number} disableHintsButton={disableHintsButton}/>
+        </MainPage>
     )
 };
 

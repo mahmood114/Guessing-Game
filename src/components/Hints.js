@@ -1,21 +1,13 @@
 import {useState} from "react";
+import { ButtonStyled } from "../styles";
 
 const Hints = (props) => {
-//  Props
+    
+    //  Props
     const number = props.number;
-
-//  useState
+    const disableHintsButton = props.disableHintsButton;
+    //  useState
     const [hints, setHints] = useState("");
-
-
-    // let hintsArray = [number];
-    // for(let i=0; i<5; i++)
-    //     hintsArray.push(Math.floor(Math.random() * 100));
-
-    // hintsArray = hintsArray.sort(() => Math.random() - 0.5) //Shuffled array
-  
-    // let hintsString = "";
-    // hintsArray.forEach(hint => hintsString = hintsString.concat(`${hint}\t`));
 
     const showHints = () => {
         
@@ -32,11 +24,11 @@ const Hints = (props) => {
             setHints(hintsString);
         }
 
-  }
+    }
     
     return (
         <div>
-            <button onClick={showHints}>Hint</button>
+            <ButtonStyled disabled={disableHintsButton} onClick={showHints}>Hint</ButtonStyled>
             <p>{hints}</p>
         </div>
     );
